@@ -18,12 +18,15 @@ using System;
 <#
 	
 	string[] Symbols = new string[] {
+		"All", "And", "Append", "Apply",
+		"True", "False",
 		"Symbol", "List", 
 		"Blank", "BlankSequence", "BlankNullSequence",
 		"Pattern",
 		"Sequence",
 		"Set", "SetDelayed",
-		"Null"
+		"Null", "String",
+		"Integer", "Real", "Rational", "Complex"
 	};
 
 	string Var(string name) => name.Replace("$", "S");

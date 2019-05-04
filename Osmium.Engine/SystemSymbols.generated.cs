@@ -14,6 +14,12 @@ namespace Osmium.Engine {
 	
 	partial class SystemSymbols {
 		
+					public Symbol All { get; }
+					public Symbol And { get; }
+					public Symbol Append { get; }
+					public Symbol Apply { get; }
+					public Symbol True { get; }
+					public Symbol False { get; }
 					public Symbol Symbol { get; }
 					public Symbol List { get; }
 					public Symbol Blank { get; }
@@ -24,8 +30,19 @@ namespace Osmium.Engine {
 					public Symbol Set { get; }
 					public Symbol SetDelayed { get; }
 					public Symbol Null { get; }
+					public Symbol String { get; }
+					public Symbol Integer { get; }
+					public Symbol Real { get; }
+					public Symbol Rational { get; }
+					public Symbol Complex { get; }
 		
 		public SystemSymbols(OsmiumEngine e) {
+							All = e.GetSymbol("System`", "All");
+							And = e.GetSymbol("System`", "And");
+							Append = e.GetSymbol("System`", "Append");
+							Apply = e.GetSymbol("System`", "Apply");
+							True = e.GetSymbol("System`", "True");
+							False = e.GetSymbol("System`", "False");
 							Symbol = e.GetSymbol("System`", "Symbol");
 							List = e.GetSymbol("System`", "List");
 							Blank = e.GetSymbol("System`", "Blank");
@@ -36,6 +53,11 @@ namespace Osmium.Engine {
 							Set = e.GetSymbol("System`", "Set");
 							SetDelayed = e.GetSymbol("System`", "SetDelayed");
 							Null = e.GetSymbol("System`", "Null");
+							String = e.GetSymbol("System`", "String");
+							Integer = e.GetSymbol("System`", "Integer");
+							Real = e.GetSymbol("System`", "Real");
+							Rational = e.GetSymbol("System`", "Rational");
+							Complex = e.GetSymbol("System`", "Complex");
 			
 			Init();
 		}

@@ -78,6 +78,11 @@ namespace Osmium.Engine
             return new SymbolValue(this, GetSymbol(name));
         }
 
+        public StringValue Str(string value)
+        {
+            return new StringValue(this, value);
+        }
+
         public Value Evaluate(Value v)
         {
             return _evaluator.Evaluate(v);

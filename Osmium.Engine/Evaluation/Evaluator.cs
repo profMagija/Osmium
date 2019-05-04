@@ -85,9 +85,9 @@ namespace Osmium.Engine.Evaluation
                 {
                     var partSym = (part.AtomHead as SymbolValue)?.Symbol;
                     var value = partSym?.UpCode?.Invoke(_engine, evaluated);
-                    if (value != null)
+                    if (value.HasValue)
                     {
-                        return (value, true);
+                        return value.Value;
                     }
                 }
             }
@@ -110,12 +110,7 @@ namespace Osmium.Engine.Evaluation
                 return (downValued, true);
 
             var coded = headsym.DownCode?.Invoke(_engine, evaluated);
-            if (coded != null)
-            {
-                return (coded, true);
-            }
-
-            return (evaluated, false);
+            return coded ?? (evaluated, false);
         }
 
         private Func<Value, IEnumerable<Value>> FlattenHeads(Symbol h)
@@ -173,10 +168,7 @@ namespace Osmium.Engine.Evaluation
 
 
             var coded = sym.OwnCode?.Invoke(_engine, symValue);
-            if (coded != null)
-                return (coded, true);
-
-            return (symValue, false);
+            return coded ?? (symValue, false);
         }
     }
 }

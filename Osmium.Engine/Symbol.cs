@@ -7,7 +7,8 @@ using Osmium.Engine.Values;
 
 namespace Osmium.Engine
 {
-    delegate Value CodeCallback(OsmiumEngine engine, Value value);
+    delegate (Value, bool)? OwnCodeCallback(OsmiumEngine engine, Value value);
+    delegate (Value, bool)? ExprCodeCallback(OsmiumEngine engine, ExpressionValue value);
 
     [Flags]
     public enum SymbolAttributes
@@ -40,11 +41,11 @@ namespace Osmium.Engine
         public string FullName { get; }
 
         internal List<(Pattern, Value)> OwnValues { get; } = new List<(Pattern, Value)>();
-        internal CodeCallback OwnCode { get; set; }
+        internal OwnCodeCallback OwnCode { get; set; }
         internal List<(Pattern, Value)> UpValues { get; } = new List<(Pattern, Value)>();
-        internal CodeCallback UpCode { get; set; }
+        internal ExprCodeCallback UpCode { get; set; }
         internal List<(Pattern, Value)> DownValues { get; } = new List<(Pattern, Value)>();
-        internal CodeCallback DownCode { get; set; }
+        internal ExprCodeCallback DownCode { get; set; }
 
         internal SymbolAttributes Attributes { get; set; } = 0;
 
