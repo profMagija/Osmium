@@ -4,11 +4,13 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading;
 using Osmium.Engine.Evaluation;
 using Osmium.Engine.Patterns;
 using Osmium.Engine.Values;
+using Osmium.Engine.Values.Numerics;
 
 namespace Osmium.Engine
 {
@@ -20,6 +22,10 @@ namespace Osmium.Engine
         private Evaluator _evaluator;
 
         public PatternMatching PatternMatching { get; }
+
+        public readonly NumberValue Zero;
+        public readonly NumberValue One;
+        public readonly NumberValue MinusOne;
 
         public string Context { get; set; }
         public List<string> ContextPath { get; }
@@ -34,6 +40,9 @@ namespace Osmium.Engine
             System = new SystemSymbols(this);
 
             Context = "Global`";
+            Zero = new IntegerValue(this, BigInteger.Zero);
+            One = new IntegerValue(this, BigInteger.One);
+            MinusOne = new IntegerValue(this, BigInteger.MinusOne);
             ContextPath = new List<string> {"System`"};
         }
 
@@ -82,6 +91,9 @@ namespace Osmium.Engine
         {
             return new StringValue(this, value);
         }
+
+        public NumberValue Num(int value) => new IntegerValue(this, value);
+        public NumberValue Num(double value) => new RealValue(this, value);
 
         public Value Evaluate(Value v)
         {

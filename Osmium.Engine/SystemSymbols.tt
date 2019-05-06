@@ -20,13 +20,20 @@ using System;
 	string[] Symbols = new string[] {
 		"All", "And", "Append", "Apply",
 		"True", "False",
-		"Symbol", "List", 
+		"Symbol", "List", "Association",
 		"Blank", "BlankSequence", "BlankNullSequence",
 		"Pattern",
 		"Sequence",
 		"Set", "SetDelayed",
 		"Null", "String",
-		"Integer", "Real", "Rational", "Complex"
+		"Integer", "Real", "Rational", "Complex",
+		"Get", "Out", "Slot", "SlotSequence", "Optional",
+		"MessageName", "Part",
+		"Increment", "Decrement", "PreIncrement", "PreDecrement",
+		"Composition", "RightComposition",
+		"Map", "MapAll",
+		"Factorial", "Factorial2", "Conjugate", "Transpose", "ConjugateTranspose",
+		"Derivative", "StringJoin"
 	};
 
 	string Var(string name) => name.Replace("$", "S");

@@ -22,6 +22,7 @@ namespace Osmium.Engine {
 					public Symbol False { get; }
 					public Symbol Symbol { get; }
 					public Symbol List { get; }
+					public Symbol Association { get; }
 					public Symbol Blank { get; }
 					public Symbol BlankSequence { get; }
 					public Symbol BlankNullSequence { get; }
@@ -35,6 +36,28 @@ namespace Osmium.Engine {
 					public Symbol Real { get; }
 					public Symbol Rational { get; }
 					public Symbol Complex { get; }
+					public Symbol Get { get; }
+					public Symbol Out { get; }
+					public Symbol Slot { get; }
+					public Symbol SlotSequence { get; }
+					public Symbol Optional { get; }
+					public Symbol MessageName { get; }
+					public Symbol Part { get; }
+					public Symbol Increment { get; }
+					public Symbol Decrement { get; }
+					public Symbol PreIncrement { get; }
+					public Symbol PreDecrement { get; }
+					public Symbol Composition { get; }
+					public Symbol RightComposition { get; }
+					public Symbol Map { get; }
+					public Symbol MapAll { get; }
+					public Symbol Factorial { get; }
+					public Symbol Factorial2 { get; }
+					public Symbol Conjugate { get; }
+					public Symbol Transpose { get; }
+					public Symbol ConjugateTranspose { get; }
+					public Symbol Derivative { get; }
+					public Symbol StringJoin { get; }
 		
 		public SystemSymbols(OsmiumEngine e) {
 							All = e.GetSymbol("System`", "All");
@@ -45,6 +68,7 @@ namespace Osmium.Engine {
 							False = e.GetSymbol("System`", "False");
 							Symbol = e.GetSymbol("System`", "Symbol");
 							List = e.GetSymbol("System`", "List");
+							Association = e.GetSymbol("System`", "Association");
 							Blank = e.GetSymbol("System`", "Blank");
 							BlankSequence = e.GetSymbol("System`", "BlankSequence");
 							BlankNullSequence = e.GetSymbol("System`", "BlankNullSequence");
@@ -58,6 +82,28 @@ namespace Osmium.Engine {
 							Real = e.GetSymbol("System`", "Real");
 							Rational = e.GetSymbol("System`", "Rational");
 							Complex = e.GetSymbol("System`", "Complex");
+							Get = e.GetSymbol("System`", "Get");
+							Out = e.GetSymbol("System`", "Out");
+							Slot = e.GetSymbol("System`", "Slot");
+							SlotSequence = e.GetSymbol("System`", "SlotSequence");
+							Optional = e.GetSymbol("System`", "Optional");
+							MessageName = e.GetSymbol("System`", "MessageName");
+							Part = e.GetSymbol("System`", "Part");
+							Increment = e.GetSymbol("System`", "Increment");
+							Decrement = e.GetSymbol("System`", "Decrement");
+							PreIncrement = e.GetSymbol("System`", "PreIncrement");
+							PreDecrement = e.GetSymbol("System`", "PreDecrement");
+							Composition = e.GetSymbol("System`", "Composition");
+							RightComposition = e.GetSymbol("System`", "RightComposition");
+							Map = e.GetSymbol("System`", "Map");
+							MapAll = e.GetSymbol("System`", "MapAll");
+							Factorial = e.GetSymbol("System`", "Factorial");
+							Factorial2 = e.GetSymbol("System`", "Factorial2");
+							Conjugate = e.GetSymbol("System`", "Conjugate");
+							Transpose = e.GetSymbol("System`", "Transpose");
+							ConjugateTranspose = e.GetSymbol("System`", "ConjugateTranspose");
+							Derivative = e.GetSymbol("System`", "Derivative");
+							StringJoin = e.GetSymbol("System`", "StringJoin");
 			
 			Init();
 		}
