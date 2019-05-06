@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,8 +16,8 @@ namespace Osmium.Engine.Values
 
         public ExpressionValue(OsmiumEngine engine, Value head, params Value[] parts) : base(engine)
         {
-            Head = head;
-            Parts = parts;
+            Head = head ?? throw new ArgumentNullException(nameof(head));
+            Parts = parts ?? throw new ArgumentNullException(nameof(parts));
 
             AtomHead = Head.AtomHead;
         }

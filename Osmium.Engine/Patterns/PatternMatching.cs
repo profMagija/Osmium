@@ -132,7 +132,7 @@ namespace Osmium.Engine.Patterns
             if (valArray.Length == 1)
                 return valArray[0];
 
-            return _engine.Expr(_engine.System.Sequence.ToValue(), valArray);
+            return _engine.Expr(_engine.System.Sequence, valArray);
         }
 
         internal IEnumerable<Value> SymbolSubstitute(Value original, ImmutableDictionary<Symbol, IEnumerable<Value>> bound)

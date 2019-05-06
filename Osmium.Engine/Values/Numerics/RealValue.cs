@@ -12,7 +12,7 @@ namespace Osmium.Engine.Values.Numerics
             Value = value;
         }
 
-        public override Value Head => Engine.System.Real.ToValue();
+        public override Value Head => Engine.System.Real;
         internal override NumberType Type => NumberType.Real;
         internal override NumberValue ConvertTo(NumberType type)
         {

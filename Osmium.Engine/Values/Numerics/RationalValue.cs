@@ -47,7 +47,7 @@ namespace Osmium.Engine.Values.Numerics
             return a == 0 ? b : a;
         }
 
-        public override Value Head => Engine.System.Rational.ToValue();
+        public override Value Head => Engine.System.Rational;
         internal override NumberType Type => NumberType.Rational;
         internal override NumberValue ConvertTo(NumberType type)
         {

@@ -35,19 +35,19 @@ namespace Osmium.Engine.Implementations
             }
 
             if (pts.Count == 0)
-                return (engine.System.True.ToValue(), false);
+                return (engine.System.True, false);
 
             if (pts.Count == 1)
                 return (pts[0], false);
 
-            return (engine.Expr(engine.System.And.ToValue(),
+            return (engine.Expr(engine.System.And,
                 pts.ToArray()
             ), false);
         }
 
         public static (Value, bool)? Append(OsmiumEngine engine, ExpressionValue expr)
         {
-            if (!expr.Head.Equals(engine.System.Append.ToValue()))
+            if (!expr.Head.Equals(engine.System.Append))
                 return null;
             if (expr.Count != 2)
             {

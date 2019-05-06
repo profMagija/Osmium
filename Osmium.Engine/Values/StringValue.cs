@@ -6,7 +6,7 @@ namespace Osmium.Engine.Values
 {
     public sealed class StringValue : AtomicValue
     {
-        public override Value Head => Engine.System.String.ToValue();
+        public override Value Head => Engine.System.String;
         public string Value { get; }
 
         public StringValue(OsmiumEngine engine, string value) : base(engine)

@@ -19,7 +19,7 @@ namespace Osmium.Engine.Values.Numerics
             return Value.ToString();
         }
 
-        public override Value Head => Engine.System.Integer.ToValue();
+        public override Value Head => Engine.System.Integer;
 
         internal override NumberValue ConvertTo(NumberType type)
         {

@@ -30,7 +30,7 @@ namespace Osmium.Engine.Implementations
                     break;
             }
 
-            return (engine.System.Null.ToValue(), false);
+            return (engine.System.Null, false);
         }
 
         private static void DoSet(Pattern pattern, Symbol symbol, List<(Pattern, Value)> targetValues, Value value)

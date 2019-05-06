@@ -54,7 +54,7 @@ namespace Osmium.Engine.Parser
         public override void ExitAtomGet(WolframLanguageParser.AtomGetContext context)
         {
             Push(
-                _engine.Expr(_engine.System.Get.ToValue(),
+                _engine.Expr(_engine.System.Get,
                     _engine.Str(context.GETFORM().GetText().Substring(2).TrimStart(' ', '\n', '\t', '\v', '\f'))
                 )
             );
@@ -77,7 +77,7 @@ namespace Osmium.Engine.Parser
                         _parse.NotifyErrorListeners($"Expression \"{context.GetText()}\" has no enclosing \"}}\"");
                     else
                         Push(
-                            _engine.Expr(_engine.System.List.ToValue(),
+                            _engine.Expr(_engine.System.List,
                                 Pop(count)
                             )
                         );
@@ -87,7 +87,7 @@ namespace Osmium.Engine.Parser
                         _parse.NotifyErrorListeners($"Expression \"{context.GetText()}\" has no enclosing \"}}\"");
                     else
                         Push(
-                            _engine.Expr(_engine.System.Association.ToValue(),
+                            _engine.Expr(_engine.System.Association,
                                 Pop(count)
                             )
                         );
@@ -106,7 +106,7 @@ namespace Osmium.Engine.Parser
         public override void ExitAtomGetExpr(WolframLanguageParser.AtomGetExprContext context)
         {
             Push(
-                _engine.Expr(_engine.System.Get.ToValue(),
+                _engine.Expr(_engine.System.Get,
                     Pop(1)
                 )
             );
@@ -122,11 +122,11 @@ namespace Osmium.Engine.Parser
 
             var text = context.OUTFORM().GetText();
             if (text.Length == 1)
-                Push(_engine.Expr(_engine.System.Out.ToValue()));
+                Push(_engine.Expr(_engine.System.Out));
             else if (text[1] == '%')
-                Push(_engine.Expr(_engine.System.Out.ToValue(), new IntegerValue(_engine, -text.Length)));
+                Push(_engine.Expr(_engine.System.Out, new IntegerValue(_engine, -text.Length)));
             else
-                Push(_engine.Expr(_engine.System.Out.ToValue(), CreateNumber(text.Substring(1))));
+                Push(_engine.Expr(_engine.System.Out, CreateNumber(text.Substring(1))));
         }
 
         public override void ExitAtomSlot(WolframLanguageParser.AtomSlotContext context)
@@ -134,14 +134,14 @@ namespace Osmium.Engine.Parser
             var text = context.GetText();
 
             if (text.Length == 1)
-                Push(_engine.Expr(_engine.System.Slot.ToValue(), _engine.One));
+                Push(_engine.Expr(_engine.System.Slot, _engine.One));
 
             else if (text[1] == '#')
-                Push(_engine.Expr(_engine.System.SlotSequence.ToValue(),
+                Push(_engine.Expr(_engine.System.SlotSequence,
                     text.Length == 2 ? _engine.One : CreateNumber(text.Substring(2)))
                 );
             else
-                Push(_engine.Expr(_engine.System.Slot.ToValue(),
+                Push(_engine.Expr(_engine.System.Slot,
                     char.IsDigit(text[1]) ? CreateNumber(text.Substring(1)) : _engine.Str(text.Substring(1)))
                 );
         }
@@ -174,11 +174,11 @@ namespace Osmium.Engine.Parser
                     throw new ArgumentOutOfRangeException();
             }
 
-            var val = _engine.Expr(sym.ToValue(), hasHead ? new Value[] { CreateSymbol(text.Substring(j)) } : new Value[0]);
+            var val = _engine.Expr(sym, hasHead ? new Value[] { CreateSymbol(text.Substring(j)) } : new Value[0]);
 
             if (isNamed)
             {
-                val = _engine.Expr(_engine.System.Pattern.ToValue(),
+                val = _engine.Expr(_engine.System.Pattern,
                     CreateSymbol(text.Substring(0, i)),
                     val
                 );
@@ -186,7 +186,7 @@ namespace Osmium.Engine.Parser
 
             if (isOpt)
             {
-                val = _engine.Expr(_engine.System.Optional.ToValue(), val);
+                val = _engine.Expr(_engine.System.Optional, val);
             }
 
             return val;
@@ -254,13 +254,13 @@ namespace Osmium.Engine.Parser
         public override void ExitOptexpr(WolframLanguageParser.OptexprContext context)
         {
             if (context.expr() == null)
-                Push(_engine.System.Null.ToValue());
+                Push(_engine.System.Null);
         }
 
         private void Construct(Symbol sym, int count)
         {
             Push(
-                _engine.Expr(sym.ToValue(), Pop(count))
+                _engine.Expr(sym, Pop(count))
             );
         }
 
@@ -311,7 +311,7 @@ namespace Osmium.Engine.Parser
             var text = context.mapApplyOperator().GetText();
             if (text == "@@@")
             {
-                Push(_engine.Expr(_engine.System.List.ToValue(), _engine.Num(1)));
+                Push(_engine.Expr(_engine.System.List, _engine.Num(1)));
                 Construct(_engine.System.Apply, 3);
             }
             else
@@ -342,7 +342,7 @@ namespace Osmium.Engine.Parser
             if (dnum == 0)
                 return;
 
-            var der = _engine.Expr(_engine.System.Derivative.ToValue(), _engine.Num(dnum));
+            var der = _engine.Expr(_engine.System.Derivative, _engine.Num(dnum));
             Push(_engine.Expr(der, Pop()));
         }
 
@@ -361,7 +361,7 @@ namespace Osmium.Engine.Parser
             switch (context.Start.Text)
             {
                 case "-":
-                    Push(_engine.Expr(_engine.System.Times.ToValue(),
+                    Push(_engine.Expr(_engine.System.Times,
                             _engine.MinusOne,
                             Pop()
                         )
@@ -382,9 +382,9 @@ namespace Osmium.Engine.Parser
         {
             var args = Pop(2);
             // Times[a, Power[b, -1]]
-            Push(_engine.Expr(_engine.System.Times.ToValue(),
+            Push(_engine.Expr(_engine.System.Times,
                     args[0],
-                    _engine.Expr(_engine.System.Power.ToValue(),
+                    _engine.Expr(_engine.System.Power,
                         args[1],
                         _engine.MinusOne
                     )
@@ -415,7 +415,7 @@ namespace Osmium.Engine.Parser
         public override void ExitNegateRule(WolframLanguageParser.NegateRuleContext context)
         {
             var v = Pop();
-            Push(_engine.Expr(_engine.System.Times.ToValue(), _engine.MinusOne, v));
+            Push(_engine.Expr(_engine.System.Times, _engine.MinusOne, v));
         }
 
         public override void ExitComparison(WolframLanguageParser.ComparisonContext context)
@@ -439,11 +439,11 @@ namespace Osmium.Engine.Parser
 
                 for (var i = 1; i < parts; i++)
                 {
-                    l[2 * i - 1] = syms[i - 1].ToValue();
+                    l[2 * i - 1] = syms[i - 1];
                     l[2 * i] = partValues[i];
                 }
 
-                Push(_engine.Expr(_engine.System.Inequality.ToValue(), l));
+                Push(_engine.Expr(_engine.System.Inequality, l));
             }
         }
 
@@ -504,7 +504,7 @@ namespace Osmium.Engine.Parser
         {
             var v = Pop();
             var sym = CreateSymbol(context.SYMBOL().GetText());
-            Push(_engine.Expr(_engine.System.Pattern.ToValue(),
+            Push(_engine.Expr(_engine.System.Pattern,
                 sym, v
             ));
         }
@@ -514,7 +514,7 @@ namespace Osmium.Engine.Parser
             var v = Pop();
             var sym = CreateBlank(context.BLANKFORM().GetText());
 
-            Push(_engine.Expr(_engine.System.Optional.ToValue(),
+            Push(_engine.Expr(_engine.System.Optional,
                 sym, v
             ));
         }
@@ -593,7 +593,7 @@ namespace Osmium.Engine.Parser
             var sym = CreateSymbol(context.SYMBOL().GetText());
             var parts = Pop(2);
 
-            Push(_engine.Expr(s.ToValue(), sym, parts[0], parts[1]));
+            Push(_engine.Expr(s, sym, parts[0], parts[1]));
         }
 
         public override void ExitClearSimple(WolframLanguageParser.ClearSimpleContext context)
@@ -606,7 +606,7 @@ namespace Osmium.Engine.Parser
         {
             var sym = CreateSymbol(context.SYMBOL().GetText());
             var val = Pop();
-            Push(_engine.Expr(_engine.System.TagUnset.ToValue(), sym, val));
+            Push(_engine.Expr(_engine.System.TagUnset, sym, val));
         }
 
         public override void ExitLambda(WolframLanguageParser.LambdaContext context)
@@ -621,13 +621,13 @@ namespace Osmium.Engine.Parser
             {
                 var fn = pf.GetText().Substring(2).TrimStart(' ', '\t', '\v', '\f', '\n');
                 var expr = Pop();
-                Push(_engine.Expr(_engine.System.Put.ToValue(), expr, _engine.Str(fn)));
+                Push(_engine.Expr(_engine.System.Put, expr, _engine.Str(fn)));
             }
             else
             {
                 var fn = context.APPENDFORM().GetText().Substring(2).TrimStart(' ', '\t', '\v', '\f', '\n');
                 var expr = Pop();
-                Push(_engine.Expr(_engine.System.PutAppend.ToValue(), expr, _engine.Str(fn)));
+                Push(_engine.Expr(_engine.System.PutAppend, expr, _engine.Str(fn)));
             }
         }
 
@@ -650,7 +650,7 @@ namespace Osmium.Engine.Parser
         {
             if (context.put() == null)
             {
-                Push(_engine.System.Null.ToValue());
+                Push(_engine.System.Null);
             }
         }
 

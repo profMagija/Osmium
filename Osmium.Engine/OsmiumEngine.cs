@@ -45,7 +45,7 @@ namespace Osmium.Engine
             Zero = new IntegerValue(this, BigInteger.Zero);
             One = new IntegerValue(this, BigInteger.One);
             MinusOne = new IntegerValue(this, BigInteger.MinusOne);
-            Null = (Symbol) System.Null.ToValue();
+            Null = System.Null;
             ContextPath = new List<string> {"System`"};
         }
 

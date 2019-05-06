@@ -12,7 +12,7 @@ namespace Osmium.Engine.Values.Numerics
             Imag = complex ?? Engine.Zero;
         }
 
-        public override Value Head => Engine.System.Complex.ToValue();
+        public override Value Head => Engine.System.Complex;
         internal override NumberType Type => NumberType.Complex;
         internal override NumberValue ConvertTo(NumberType type)
         {
