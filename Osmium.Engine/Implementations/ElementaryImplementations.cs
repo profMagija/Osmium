@@ -16,14 +16,14 @@ namespace Osmium.Engine.Implementations
             foreach (var part in expr.Parts)
             {
                 var epart = engine.Evaluate(part);
-                if (epart is SymbolValue sv)
+                if (epart is Symbol sv)
                 {
-                    if (sv.Symbol == engine.System.False)
+                    if (sv == engine.System.False)
                     {
                         return (epart, false);
                     }
 
-                    if (sv.Symbol == engine.System.True)
+                    if (sv == engine.System.True)
                     {
                         continue;
                     }
@@ -81,12 +81,12 @@ namespace Osmium.Engine.Implementations
         {
             if (expr.Head is ExpressionValue hexpr)
             {
-                if (hexpr.Head is SymbolValue sv && sv.Symbol == engine.System.Apply && hexpr.Count == 1 && expr.Count == 1)
+                if (hexpr.Head is Symbol sv && sv == engine.System.Apply && hexpr.Count == 1 && expr.Count == 1)
                 {
                     return (DoApply(engine, hexpr[0], expr[0], 0, 0), true);
                 }
             }
-            else if (expr.Head is SymbolValue sv && sv.Symbol == engine.System.Apply)
+            else if (expr.Head is Symbol sv && sv == engine.System.Apply)
             {
                 if (expr.Count == 1)
                     return null;

@@ -56,6 +56,11 @@ namespace Osmium.Engine.Values.Numerics
             return Value.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return Value.ToString("0.#");
+        }
+
         public static NumberValue Add(RealValue a, RealValue b) => new RealValue(a.Engine, a.Value + b.Value);
         public static NumberValue Mul(RealValue a, RealValue b) => new RealValue(a.Engine, a.Value * b.Value);
         public static NumberValue Pow(RealValue a, RealValue b) => new RealValue(a.Engine, Math.Pow(a.Value, b.Value));

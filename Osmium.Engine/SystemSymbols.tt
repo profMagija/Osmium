@@ -18,13 +18,14 @@ using System;
 <#
 	
 	string[] Symbols = new string[] {
-		"All", "And", "Append", "Apply",
+		"All", "Append", "Apply",
 		"True", "False",
 		"Symbol", "List", "Association",
 		"Blank", "BlankSequence", "BlankNullSequence",
-		"Pattern",
+		"Pattern", "PatternTest",
 		"Sequence",
-		"Set", "SetDelayed",
+		"Set", "SetDelayed", "UpSet", "UpSetDelayed", "TagSet", "TagSetDelayed",
+		"Unset", "TagUnset",
 		"Null", "String",
 		"Integer", "Real", "Rational", "Complex",
 		"Get", "Out", "Slot", "SlotSequence", "Optional",
@@ -33,7 +34,17 @@ using System;
 		"Composition", "RightComposition",
 		"Map", "MapAll",
 		"Factorial", "Factorial2", "Conjugate", "Transpose", "ConjugateTranspose",
-		"Derivative", "StringJoin"
+		"Derivative", "StringJoin",
+		"Times", "Plus", "PlusMinus", "MinusPlus", "Power",
+		"Equal", "Unequal", "Greater", "GreaterEqual", "Less", "LessEqual", "Inequality",
+		"SameQ", "UnsameQ",
+		"Not", "Or", "And", 
+		"Repeated", "RepeatedNull", "Alternatives",
+		"StringExpression", "Condition", "TwoWayRule",
+		"Rule", "DelayedRule",
+		"ReplaceAll", "ReplaceRepeated",
+		"AddTo", "SubtractFrom", "TimesBy", "DivideBy",
+		"Function", "Put", "PutAppend", "CompoundExpression",
 	};
 
 	string Var(string name) => name.Replace("$", "S");

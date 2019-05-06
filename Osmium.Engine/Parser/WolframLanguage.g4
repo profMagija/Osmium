@@ -12,7 +12,7 @@ atomic : NUMBER						# AtomNumber
 	   | XLEFT csexpr XRIGHT		# AtomMatchfix
 	   ;
 
-csexpr : optexpr (',' optexpr)* ;
+csexpr : ( expr (',' optexpr)* ) ?;
 optexpr : expr? ;
 
 messageName : atomic messageNamePart* ;
@@ -109,7 +109,7 @@ division : prefixPm								# nothing10
 
 // TODO : more shit here
 
-times : division ( ( '*' | Times )? division )* ;
+times : division ( ( '*' | Times ) division )* ;
 // Times = 0x00d7
 
 // TODO : even more shit
@@ -118,9 +118,19 @@ times : division ( ( '*' | Times )? division )* ;
 // note +- and -+ bind TIGHTER than + and - and left associative
 // TODO: +- and -+
 
-plusMinus : times ( ( '+' | '-' ) times )* ;
+plusMinus 
+	: times plusMinusPart+ 
+	| times 
+	;
+
+plusMinusPart
+	: '+' times		# nothing40
+	| '-' times		# negateRule
+	;
 
 // TODO intersection, union
+
+// TODO: span goes here
 
 comparison : plusMinus ( compOperator plusMinus )* ; // TODO: combined
 
@@ -128,7 +138,11 @@ compOperator : '==' | '!=' | '>' | '>=' | '<' | '<=' ;
 
 // TODO: bunch more
 
-sameQ : comparison ( ( '===' | '=!=' ) comparison ) * ;
+sameQ 
+	: comparison						# nothing41
+	| comparison ( '===' comparison )+	# sameQRule
+	| sameQ '=!=' comparison			# unsameQRule
+	;
 
 // TODO: element, firstorder
 
@@ -146,14 +160,16 @@ ors : ands ( ( '||' ) ands )* ;
 // TODO: equivalent, implies, tees, suchthat
 
 repeated 
-	: ors							# nothing12
-	| repeated ( '..' | '...' )		# repeatedRule
+	: ors				# nothing12
+	| repeated '..'		# repeatedRule
+	| repeated '...'	# repeatedNullRule
 	;
 
 alternatives : repeated ( '|' repeated )* ;
 
 pattern 
-	: SYMBOL ':' alternatives		# namedPattern
+	: alternatives					# nothing42
+	| SYMBOL ':' alternatives		# namedPattern
 	| BLANKFORM ':' alternatives	# optionalWithDefault
 	;
 
@@ -170,19 +186,23 @@ twoWayRule
 	;
 
 rules 
-	: twoWayRule						# nothing15
-    | twoWayRule ( '->' | ':>' ) rules	# ruleRule
+	: twoWayRule				# nothing15
+    | twoWayRule '->' rules		# ruleRule
+	| twoWayRule ':>' rules		# delayedRuleRule
 	;
 
 replaceAll
-	: rules									# nothing16
-	| replaceAll ( '/.' | '//.' ) rules		# replaceAllRule
+	: rules						# nothing16
+	| replaceAll '/.' rules		# replaceAllRule
+	| replaceAll '//.' rules	# replaceRepeatedRule
 	;
 
 augSet 
-	: replaceAll										# nothing17
-    | replaceAll ( '+=' | '-=' | '*=' | '/=' ) augSet	# augmentedSet
+	: replaceAll					# nothing17
+    | replaceAll augSetOp augSet	# augmentedSet
 	;
+
+augSetOp : '+=' | '-=' | '*=' | '/=' ;
 
 function 
 	: augSet		# nothing18
@@ -197,18 +217,24 @@ postfixApply
 	;
 
 
-set : postfixApply										# nothing20
-	| postfixApply ( '=' | ':=' | '^=' | '^:=' ) set	# setSimple
-	| SYMBOL '/:' postfixApply ( '=' | ':=' ) set		# tagSet
-	| postfixApply '=.'									# clearSimple
-	| SYMBOL '/:' postfixApply '=.'						# tagClear
-	| postfixApply Function set							# lambda
+set : postfixApply							# nothing20
+	| postfixApply setOp set				# setSimple
+	| SYMBOL '/:' postfixApply setOp2 set	# tagSet
+	| postfixApply '=.'						# clearSimple
+	| SYMBOL '/:' postfixApply '=.'			# tagClear
+	| postfixApply Function set				# lambda
 	// Function = 0xf4a1
 	;
 
+setOp  : '=' | ':=' | '^=' | '^:=' ;
+setOp2 : '=' | ':=' ;
+
 put : set							# nothing21
 	| set (PUTFORM | APPENDFORM)	# putRule
+	| put putOp set					# putExprRule
 	;
+
+putOp : '>>' | '>>>' ;
 
 compoundExpr : put (';' putopt)* ;
 putopt : put? ;
@@ -377,3 +403,4 @@ Not				 	 : '\u00ac' ;
 Function			 : '\uf4a1' ;
 
 COMMENT : '(*' (COMMENT | .)*? '*)' -> channel(HIDDEN);
+WHITESPACE : [ \n\t]+ -> channel(HIDDEN) ; // TODO: all other whitespace

@@ -22,8 +22,8 @@ namespace Osmium.Engine.Implementations
                     // TODO: make sure head is a symbol
                     DoSet(engine.PatternMatching.CompilePattern(lhsExpr), lhsExpr.SymbolHead, lhsExpr.SymbolHead.DownValues, rhs);
                     break;
-                case SymbolValue lhsSymbol:
-                    DoSet(engine.PatternMatching.CompilePattern(lhsSymbol), lhsSymbol.Symbol, lhsSymbol.Symbol.OwnValues, rhs);
+                case Symbol lhsSymbol:
+                    DoSet(engine.PatternMatching.CompilePattern(lhsSymbol), lhsSymbol, lhsSymbol.OwnValues, rhs);
                     break;
                 default:
                     // TODO: message
@@ -61,8 +61,8 @@ namespace Osmium.Engine.Implementations
                     // TODO: allow {x, y} = {1, 2}
                     DoSet(engine.PatternMatching.CompilePattern(lhsExpr), lhsExpr.SymbolHead, lhsExpr.SymbolHead.DownValues, rhs);
                     break;
-                case SymbolValue lhsSymbol:
-                    DoSet(engine.PatternMatching.CompilePattern(lhsSymbol), lhsSymbol.Symbol, lhsSymbol.Symbol.OwnValues, rhs);
+                case Symbol lhsSymbol:
+                    DoSet(engine.PatternMatching.CompilePattern(lhsSymbol), lhsSymbol, lhsSymbol.OwnValues, rhs);
                     break;
                 default:
                     // TODO: message

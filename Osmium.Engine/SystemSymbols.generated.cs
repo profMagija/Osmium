@@ -15,7 +15,6 @@ namespace Osmium.Engine {
 	partial class SystemSymbols {
 		
 					public Symbol All { get; }
-					public Symbol And { get; }
 					public Symbol Append { get; }
 					public Symbol Apply { get; }
 					public Symbol True { get; }
@@ -27,9 +26,16 @@ namespace Osmium.Engine {
 					public Symbol BlankSequence { get; }
 					public Symbol BlankNullSequence { get; }
 					public Symbol Pattern { get; }
+					public Symbol PatternTest { get; }
 					public Symbol Sequence { get; }
 					public Symbol Set { get; }
 					public Symbol SetDelayed { get; }
+					public Symbol UpSet { get; }
+					public Symbol UpSetDelayed { get; }
+					public Symbol TagSet { get; }
+					public Symbol TagSetDelayed { get; }
+					public Symbol Unset { get; }
+					public Symbol TagUnset { get; }
 					public Symbol Null { get; }
 					public Symbol String { get; }
 					public Symbol Integer { get; }
@@ -58,10 +64,44 @@ namespace Osmium.Engine {
 					public Symbol ConjugateTranspose { get; }
 					public Symbol Derivative { get; }
 					public Symbol StringJoin { get; }
+					public Symbol Times { get; }
+					public Symbol Plus { get; }
+					public Symbol PlusMinus { get; }
+					public Symbol MinusPlus { get; }
+					public Symbol Power { get; }
+					public Symbol Equal { get; }
+					public Symbol Unequal { get; }
+					public Symbol Greater { get; }
+					public Symbol GreaterEqual { get; }
+					public Symbol Less { get; }
+					public Symbol LessEqual { get; }
+					public Symbol Inequality { get; }
+					public Symbol SameQ { get; }
+					public Symbol UnsameQ { get; }
+					public Symbol Not { get; }
+					public Symbol Or { get; }
+					public Symbol And { get; }
+					public Symbol Repeated { get; }
+					public Symbol RepeatedNull { get; }
+					public Symbol Alternatives { get; }
+					public Symbol StringExpression { get; }
+					public Symbol Condition { get; }
+					public Symbol TwoWayRule { get; }
+					public Symbol Rule { get; }
+					public Symbol DelayedRule { get; }
+					public Symbol ReplaceAll { get; }
+					public Symbol ReplaceRepeated { get; }
+					public Symbol AddTo { get; }
+					public Symbol SubtractFrom { get; }
+					public Symbol TimesBy { get; }
+					public Symbol DivideBy { get; }
+					public Symbol Function { get; }
+					public Symbol Put { get; }
+					public Symbol PutAppend { get; }
+					public Symbol CompoundExpression { get; }
 		
 		public SystemSymbols(OsmiumEngine e) {
 							All = e.GetSymbol("System`", "All");
-							And = e.GetSymbol("System`", "And");
 							Append = e.GetSymbol("System`", "Append");
 							Apply = e.GetSymbol("System`", "Apply");
 							True = e.GetSymbol("System`", "True");
@@ -73,9 +113,16 @@ namespace Osmium.Engine {
 							BlankSequence = e.GetSymbol("System`", "BlankSequence");
 							BlankNullSequence = e.GetSymbol("System`", "BlankNullSequence");
 							Pattern = e.GetSymbol("System`", "Pattern");
+							PatternTest = e.GetSymbol("System`", "PatternTest");
 							Sequence = e.GetSymbol("System`", "Sequence");
 							Set = e.GetSymbol("System`", "Set");
 							SetDelayed = e.GetSymbol("System`", "SetDelayed");
+							UpSet = e.GetSymbol("System`", "UpSet");
+							UpSetDelayed = e.GetSymbol("System`", "UpSetDelayed");
+							TagSet = e.GetSymbol("System`", "TagSet");
+							TagSetDelayed = e.GetSymbol("System`", "TagSetDelayed");
+							Unset = e.GetSymbol("System`", "Unset");
+							TagUnset = e.GetSymbol("System`", "TagUnset");
 							Null = e.GetSymbol("System`", "Null");
 							String = e.GetSymbol("System`", "String");
 							Integer = e.GetSymbol("System`", "Integer");
@@ -104,6 +151,41 @@ namespace Osmium.Engine {
 							ConjugateTranspose = e.GetSymbol("System`", "ConjugateTranspose");
 							Derivative = e.GetSymbol("System`", "Derivative");
 							StringJoin = e.GetSymbol("System`", "StringJoin");
+							Times = e.GetSymbol("System`", "Times");
+							Plus = e.GetSymbol("System`", "Plus");
+							PlusMinus = e.GetSymbol("System`", "PlusMinus");
+							MinusPlus = e.GetSymbol("System`", "MinusPlus");
+							Power = e.GetSymbol("System`", "Power");
+							Equal = e.GetSymbol("System`", "Equal");
+							Unequal = e.GetSymbol("System`", "Unequal");
+							Greater = e.GetSymbol("System`", "Greater");
+							GreaterEqual = e.GetSymbol("System`", "GreaterEqual");
+							Less = e.GetSymbol("System`", "Less");
+							LessEqual = e.GetSymbol("System`", "LessEqual");
+							Inequality = e.GetSymbol("System`", "Inequality");
+							SameQ = e.GetSymbol("System`", "SameQ");
+							UnsameQ = e.GetSymbol("System`", "UnsameQ");
+							Not = e.GetSymbol("System`", "Not");
+							Or = e.GetSymbol("System`", "Or");
+							And = e.GetSymbol("System`", "And");
+							Repeated = e.GetSymbol("System`", "Repeated");
+							RepeatedNull = e.GetSymbol("System`", "RepeatedNull");
+							Alternatives = e.GetSymbol("System`", "Alternatives");
+							StringExpression = e.GetSymbol("System`", "StringExpression");
+							Condition = e.GetSymbol("System`", "Condition");
+							TwoWayRule = e.GetSymbol("System`", "TwoWayRule");
+							Rule = e.GetSymbol("System`", "Rule");
+							DelayedRule = e.GetSymbol("System`", "DelayedRule");
+							ReplaceAll = e.GetSymbol("System`", "ReplaceAll");
+							ReplaceRepeated = e.GetSymbol("System`", "ReplaceRepeated");
+							AddTo = e.GetSymbol("System`", "AddTo");
+							SubtractFrom = e.GetSymbol("System`", "SubtractFrom");
+							TimesBy = e.GetSymbol("System`", "TimesBy");
+							DivideBy = e.GetSymbol("System`", "DivideBy");
+							Function = e.GetSymbol("System`", "Function");
+							Put = e.GetSymbol("System`", "Put");
+							PutAppend = e.GetSymbol("System`", "PutAppend");
+							CompoundExpression = e.GetSymbol("System`", "CompoundExpression");
 			
 			Init();
 		}

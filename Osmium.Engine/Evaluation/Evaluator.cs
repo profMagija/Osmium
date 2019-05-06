@@ -24,7 +24,7 @@ namespace Osmium.Engine.Evaluation
         {
             var head = Evaluate(expr.Head);
             // sym is just the head, if it's a symbol
-            var sym = (head as SymbolValue)?.Symbol;
+            var sym = head as Symbol;
             var attrs = sym?.Attributes ?? 0;
 
             var evalFirst = true;
@@ -73,7 +73,7 @@ namespace Osmium.Engine.Evaluation
 
                 foreach (var part in parts)
                 {
-                    var partSym = (part.AtomHead as SymbolValue)?.Symbol;
+                    var partSym = part.AtomHead as Symbol;
                     if (partSym == null) continue;
 
                     var upValued = _engine.PatternMatching.FindAndApplyRule(evaluated, partSym.UpValues);
@@ -83,7 +83,7 @@ namespace Osmium.Engine.Evaluation
 
                 foreach (var part in parts)
                 {
-                    var partSym = (part.AtomHead as SymbolValue)?.Symbol;
+                    var partSym = part.AtomHead as Symbol;
                     var value = partSym?.UpCode?.Invoke(_engine, evaluated);
                     if (value.HasValue)
                     {
@@ -101,7 +101,7 @@ namespace Osmium.Engine.Evaluation
             // (head of head of .... till we get to atom)
             // THIS IS DIFFERENT FROM sym DECLARED AT THE START
 
-            var headsym = (head.AtomHead as SymbolValue)?.Symbol;
+            var headsym = head.AtomHead as Symbol;
             if (headsym == null)
                 return (evaluated, false);
 
@@ -117,7 +117,7 @@ namespace Osmium.Engine.Evaluation
         {
             IEnumerable<Value> Helper(Value arg)
             {
-                if (arg is ExpressionValue expr && expr.Head is SymbolValue sym && sym.Symbol == h)
+                if (arg is ExpressionValue expr && expr.Head is Symbol sym && sym == h)
                 {
                     return expr.Parts.SelectMany(Helper);
                 }
@@ -146,7 +146,7 @@ namespace Osmium.Engine.Evaluation
                     case ExpressionValue expr:
                         (v, needMore) = EvaluateExpression(expr);
                         break;
-                    case SymbolValue symValue:
+                    case Symbol symValue:
                         (v, needMore) = EvaluateSymbol(symValue);
                         break;
                     default:
@@ -158,9 +158,9 @@ namespace Osmium.Engine.Evaluation
             return v;
         }
 
-        private (Value, bool) EvaluateSymbol(SymbolValue symValue)
+        private (Value, bool) EvaluateSymbol(Symbol symValue)
         {
-            var sym = symValue.Symbol;
+            var sym = symValue;
 
             var reg = _engine.PatternMatching.FindAndApplyRule(symValue, sym.OwnValues);
             if (reg != null)

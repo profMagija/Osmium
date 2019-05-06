@@ -25,7 +25,7 @@ namespace Osmium.Engine.Patterns
             if (!(pattern is ExpressionValue expr))
                 return new LiteralPattern(pattern);
 
-            var head = (expr.Head as SymbolValue)?.Symbol;
+            var head = expr.Head as Symbol;
 
             var system = _engine.System;
 
@@ -58,7 +58,7 @@ namespace Osmium.Engine.Patterns
             {
                 if (expr.Count == 2)
                 {
-                    var name = (expr[0] as SymbolValue)?.Symbol;
+                    var name = expr[0] as Symbol;
                     if (name == null)
                     {
                         // TODO: message
@@ -144,8 +144,8 @@ namespace Osmium.Engine.Patterns
                         ToSingle(SymbolSubstitute(expr.Head, bound)),
                         expr.Parts.SelectMany(p => SymbolSubstitute(p, bound)).ToArray()
                     );
-                case SymbolValue symValue:
-                    if (bound.TryGetValue(symValue.Symbol, out var replacement))
+                case Symbol symValue:
+                    if (bound.TryGetValue(symValue, out var replacement))
                         return replacement;
                     else
                         return new [] {original};

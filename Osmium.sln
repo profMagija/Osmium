@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Osmium.Engine", "Osmium.Engine\Osmium.Engine.csproj", "{BAE32323-8DC8-425B-9755-E2BEA17AC734}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osmium.Engine.Test", "Osmium.Engine.Test\Osmium.Engine.Test.csproj", "{307FB672-0479-4CD7-97DC-583DF795191B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Osmium.Engine.Test", "Osmium.Engine.Test\Osmium.Engine.Test.csproj", "{307FB672-0479-4CD7-97DC-583DF795191B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osmium.Engine.Kernel", "Osmium.Engine.Kernel\Osmium.Engine.Kernel.csproj", "{A55EDCD2-E47F-446F-A6E4-B353BFA4BB10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{307FB672-0479-4CD7-97DC-583DF795191B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{307FB672-0479-4CD7-97DC-583DF795191B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{307FB672-0479-4CD7-97DC-583DF795191B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A55EDCD2-E47F-446F-A6E4-B353BFA4BB10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A55EDCD2-E47F-446F-A6E4-B353BFA4BB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A55EDCD2-E47F-446F-A6E4-B353BFA4BB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A55EDCD2-E47F-446F-A6E4-B353BFA4BB10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

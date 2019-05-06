@@ -34,9 +34,10 @@ namespace Osmium.Engine
         Stub = 1 << 18
     }
 
-    public class Symbol
+    public class Symbol : AtomicValue
     {
 
+        public override Value Head => Engine.System.Symbol.ToValue();
 
         public string FullName { get; }
 
@@ -49,17 +50,16 @@ namespace Osmium.Engine
 
         internal SymbolAttributes Attributes { get; set; } = 0;
 
-        private readonly OsmiumEngine _engine;
-
-        public Symbol(OsmiumEngine engine, string fullName)
+        public Symbol(OsmiumEngine engine, string fullName) : base(engine)
         {
             FullName = fullName;
-            _engine = engine;
         }
+
+        private readonly Value _value;
 
         public Value ToValue()
         {
-            return new SymbolValue(_engine, this);
+            return _value;
         }
 
         public override string ToString()

@@ -11,7 +11,7 @@ namespace Osmium.Engine.Values
         public override bool IsAtomic => false;
         public override Value Head { get; }
         public override AtomicValue AtomHead { get; }
-        public Symbol SymbolHead => (AtomHead as SymbolValue)?.Symbol;
+        public Symbol SymbolHead => AtomHead as Symbol;
 
         public ExpressionValue(OsmiumEngine engine, Value head, params Value[] parts) : base(engine)
         {

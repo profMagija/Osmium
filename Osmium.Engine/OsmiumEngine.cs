@@ -4,10 +4,12 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Numerics;
 using System.Text;
 using System.Threading;
 using Osmium.Engine.Evaluation;
+using Osmium.Engine.Parser;
 using Osmium.Engine.Patterns;
 using Osmium.Engine.Values;
 using Osmium.Engine.Values.Numerics;
@@ -26,6 +28,7 @@ namespace Osmium.Engine
         public readonly NumberValue Zero;
         public readonly NumberValue One;
         public readonly NumberValue MinusOne;
+        public readonly Symbol Null;
 
         public string Context { get; set; }
         public List<string> ContextPath { get; }
@@ -36,13 +39,13 @@ namespace Osmium.Engine
             _symTab = new SymbolTable(this);
             _evaluator = new Evaluator(this);
             PatternMatching = new PatternMatching(this);
-
             System = new SystemSymbols(this);
 
             Context = "Global`";
             Zero = new IntegerValue(this, BigInteger.Zero);
             One = new IntegerValue(this, BigInteger.One);
             MinusOne = new IntegerValue(this, BigInteger.MinusOne);
+            Null = (Symbol) System.Null.ToValue();
             ContextPath = new List<string> {"System`"};
         }
 
@@ -82,9 +85,9 @@ namespace Osmium.Engine
             return new ExpressionValue(this, head, values);
         }
 
-        public SymbolValue Sym(string name)
+        public Symbol Sym(string name)
         {
-            return new SymbolValue(this, GetSymbol(name));
+            return GetSymbol(name);
         }
 
         public StringValue Str(string value)
@@ -97,7 +100,21 @@ namespace Osmium.Engine
 
         public Value Evaluate(Value v)
         {
-            return _evaluator.Evaluate(v);
+            var result = _evaluator.Evaluate(v);
+            Line++;
+            return result;
+        }
+
+        public int Line { get; set; } = 1;
+
+        public Value Parse(string input)
+        {
+            return WolframLanguageParser.Parse(this, input);
+        }
+
+        public Value Evaluate(string input)
+        {
+            return Evaluate(Parse(input));
         }
 
         public bool IsMatch(Value pattern, Value what)
