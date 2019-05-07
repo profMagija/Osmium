@@ -125,28 +125,27 @@ namespace Osmium.Engine.Patterns
             return null;
         }
 
-        internal Value ToSingle(IEnumerable<Value> values)
+        internal Value ToSingle(Value[] values)
         {
-            var valArray = values as Value[] ?? values.ToArray();
+            if (values.Length == 1)
+                return values[0];
 
-            if (valArray.Length == 1)
-                return valArray[0];
-
-            return _engine.Expr(_engine.System.Sequence, valArray);
+            return _engine.Expr(_engine.System.Sequence, values);
+            return _engine.Expr(_engine.System.Sequence, values);
         }
 
-        internal IEnumerable<Value> SymbolSubstitute(Value original, ImmutableDictionary<Symbol, IEnumerable<Value>> bound)
+        internal Value[] SymbolSubstitute(Value original, ImmutableDictionary<Symbol, IEnumerable<Value>> bound)
         {
             switch (original)
             {
                 case ExpressionValue expr:
-                    return _engine.Expr(
+                    return new[] {_engine.Expr(
                         ToSingle(SymbolSubstitute(expr.Head, bound)),
                         expr.Parts.SelectMany(p => SymbolSubstitute(p, bound)).ToArray()
-                    );
+                    )};
                 case Symbol symValue:
                     if (bound.TryGetValue(symValue, out var replacement))
-                        return replacement;
+                        return replacement as Value[] ?? replacement.ToArray();
                     else
                         return new [] {original};
                 default:
