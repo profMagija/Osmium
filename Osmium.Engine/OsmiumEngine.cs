@@ -29,6 +29,8 @@ namespace Osmium.Engine
         public readonly NumberValue One;
         public readonly NumberValue MinusOne;
         public readonly Symbol Null;
+        public readonly Symbol True;
+        public readonly Symbol False;
 
         public string Context { get; set; }
         public List<string> ContextPath { get; }
@@ -46,6 +48,8 @@ namespace Osmium.Engine
             One = new IntegerValue(this, BigInteger.One);
             MinusOne = new IntegerValue(this, BigInteger.MinusOne);
             Null = System.Null;
+            True = System.True;
+            False = System.False;
             ContextPath = new List<string> {"System`"};
         }
 

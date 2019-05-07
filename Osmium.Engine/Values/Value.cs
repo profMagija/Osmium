@@ -11,6 +11,6 @@
         public abstract Value Head { get; }
         public abstract AtomicValue AtomHead { get; }
 
-        protected OsmiumEngine Engine { get; }
+        protected internal OsmiumEngine Engine { get; }
     }
 }

@@ -74,6 +74,19 @@ namespace Osmium.Engine.Patterns
                     // TODO: message
                 }
             }
+            else if (head == system.Condition)
+            {
+                if (expr.Count == 2)
+                {
+                    var patt = CompilePattern(expr[0]);
+                    var cond = expr[1];
+                    return new ConditionPattern(patt, cond);
+                }
+                else
+                {
+                    // TODO: message
+                }
+            }
 
             var headPat = CompilePattern(expr.Head);
             var partPats = expr.Parts.Select(CompilePattern).ToArray();
