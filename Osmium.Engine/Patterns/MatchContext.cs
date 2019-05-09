@@ -6,9 +6,9 @@ namespace Osmium.Engine.Patterns
 {
     internal class MatchContext
     {
-        public ImmutableDictionary<Symbol, IEnumerable<Value>> Captures { get; }
+        public ImmutableDictionary<Symbol, Value[]> Captures { get; }
 
-        private MatchContext(ImmutableDictionary<Symbol, IEnumerable<Value>> captures)
+        private MatchContext(ImmutableDictionary<Symbol, Value[]> captures)
         {
             Captures = captures;
         }
@@ -20,10 +20,10 @@ namespace Osmium.Engine.Patterns
 
         public static MatchContext Create()
         {
-            return new MatchContext(ImmutableDictionary<Symbol, IEnumerable<Value>>.Empty);
+            return new MatchContext(ImmutableDictionary<Symbol, Value[]>.Empty);
         }
 
-        public MatchContext WithCapture(Symbol name, IEnumerable<Value> match)
+        public MatchContext WithCapture(Symbol name, Value[] match)
         {
             return new MatchContext(Captures.Add(name, match));
         }

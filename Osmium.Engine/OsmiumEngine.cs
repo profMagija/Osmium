@@ -104,12 +104,8 @@ namespace Osmium.Engine
 
         public Value Evaluate(Value v)
         {
-            var result = _evaluator.Evaluate(v);
-            Line++;
-            return result;
+            return _evaluator.Evaluate(v);
         }
-
-        public int Line { get; set; } = 1;
 
         public Value Parse(string input)
         {

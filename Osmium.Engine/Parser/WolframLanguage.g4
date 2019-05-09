@@ -403,4 +403,5 @@ Not				 	 : '\u00ac' ;
 Function			 : '\uf4a1' ;
 
 COMMENT : '(*' (COMMENT | .)*? '*)' -> channel(HIDDEN);
-WHITESPACE : [ \n\t]+ -> channel(HIDDEN) ; // TODO: all other whitespace
+WHITESPACE : [ \t]+ -> channel(HIDDEN) ; // TODO: all other whitespace
+NEWLINE : '\n'+ -> channel(HIDDEN) ;

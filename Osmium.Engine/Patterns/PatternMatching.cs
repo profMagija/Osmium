@@ -147,7 +147,7 @@ namespace Osmium.Engine.Patterns
             return _engine.Expr(_engine.System.Sequence, values);
         }
 
-        internal Value[] SymbolSubstitute(Value original, ImmutableDictionary<Symbol, IEnumerable<Value>> bound)
+        internal Value[] SymbolSubstitute(Value original, ImmutableDictionary<Symbol, Value[]> bound)
         {
             switch (original)
             {

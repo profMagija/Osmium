@@ -52,7 +52,7 @@ namespace Osmium.Engine.Test
         {
             var f = _engine.Sym("f");
             var x = _engine.Sym("x");
-            var nul = _engine.Sym("Null");
+            var nul = _engine.Null;
 
             Assert.AreEqual(_engine.Expr(f), _engine.Evaluate("f[]"));
             Assert.AreEqual(_engine.Expr(f, x), _engine.Evaluate("f[x]"));
@@ -60,6 +60,12 @@ namespace Osmium.Engine.Test
             Assert.AreEqual(_engine.Expr(f, x, nul, x), _engine.Evaluate("f[x, , x]"));
         }
 
+        [Test]
+        public void TestNewlineEscaping()
+        {
+            Assert.AreEqual(_engine.Num(1), _engine.Parse("1\n2"));
+            Assert.AreEqual(_engine.Parse("f[1 * 2]"), _engine.Parse("f[1 *\n2]"));
+        }
 
         [TestCase("Slot[1]", "#")]
         [TestCase("Slot[2]", "#2")]

@@ -28,7 +28,7 @@ using System;
 		"Unset", "TagUnset",
 		"Null", "String",
 		"Integer", "Real", "Rational", "Complex",
-		"Get", "Out", "Slot", "SlotSequence", "Optional",
+		"Get", "Slot", "SlotSequence", "Optional",
 		"MessageName", "Part",
 		"Increment", "Decrement", "PreIncrement", "PreDecrement",
 		"Composition", "RightComposition",
@@ -45,6 +45,9 @@ using System;
 		"ReplaceAll", "ReplaceRepeated",
 		"AddTo", "SubtractFrom", "TimesBy", "DivideBy",
 		"Function", "Put", "PutAppend", "CompoundExpression",
+		"$PreRead", "$SyntaxHandler", "$Pre", "$Post", "$PrePrint", 
+		"In", "InString", "Out", "MessageList", "$MessageList",
+		"$Failed", "$Line"
 	};
 
 	string Var(string name) => name.Replace("$", "S");

@@ -50,43 +50,5 @@ namespace Osmium.Engine.Values.Numerics
 
         public static readonly NumericFunction Add = MakeConvertorOp(Adds);
         public static readonly NumericFunction Mul = MakeConvertorOp(Muls);
-
-        public static (Value, bool)? Plus(OsmiumEngine engine, ExpressionValue value)
-        {
-            if (!(value.Head is Symbol sv) || sv != engine.System.Plus)
-                return null;
-
-            NumberValue nv = null;
-
-            int numCount = 0;
-
-            var nonNum = new List<Value>();
-
-            foreach (var part in value)
-            {
-                if (!(part is NumberValue numPart))
-                {
-                    nonNum.Add(part);
-                    continue;
-                }
-
-                numCount++;
-
-                nv = nv == null ? numPart : Add(nv, numPart);
-            }
-
-            if (numCount < 2)
-            {
-                return (value, false);
-            }
-
-            if (nonNum.Count == 0)
-            {
-                return (nv, true);
-            }
-
-            nonNum.Add(nv);
-            return (engine.Expr(value.Head, nonNum.ToArray()), true);
-        }
     }
 }

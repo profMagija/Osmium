@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Osmium.Engine.Values;
 
@@ -17,15 +18,22 @@ namespace Osmium.Engine.Patterns.PatternClasses
 
         public override IEnumerable<MatchResult> Match(Value expr, MatchContext context)
         {
-            return _pattern.Match(expr, context).Select(ctx => ctx.Context.WithCapture(_name, ctx.SequenceMatch).WithMatch(ctx.SequenceMatch));
+            return _pattern.Match(expr, context).Select(FilterMatch).Where(x => x != null);
+        }
+
+        private MatchResult FilterMatch(MatchResult ctx)
+        {
+            if (ctx.Context.Captures.TryGetValue(_name, out var existing))
+            {
+                return existing.SequenceEqual(ctx.SequenceMatch) ? ctx : null;
+            }
+
+            return ctx.Context.WithCapture(_name, ctx.SequenceMatch).WithMatch(ctx.SequenceMatch);
         }
 
         public override IEnumerable<(MatchResult, IEnumerable<Value>)> MatchSequence(IEnumerable<Value> exprs, MatchContext context)
         {
-            return from pair in _pattern.MatchSequence(exprs, context)
-                let ctx = pair.Item1
-                let rest = pair.Item2
-                select (ctx.Context.WithCapture(_name, ctx.SequenceMatch).WithMatch(ctx.SequenceMatch), rest);
+            return _pattern.MatchSequence(exprs, context).Select(x => (FilterMatch(x.Item1), x.Item2)).Where(x => x.Item1 != null);
         }
     }
 }

@@ -43,7 +43,6 @@ namespace Osmium.Engine {
 					public Symbol Rational { get; }
 					public Symbol Complex { get; }
 					public Symbol Get { get; }
-					public Symbol Out { get; }
 					public Symbol Slot { get; }
 					public Symbol SlotSequence { get; }
 					public Symbol Optional { get; }
@@ -99,6 +98,18 @@ namespace Osmium.Engine {
 					public Symbol Put { get; }
 					public Symbol PutAppend { get; }
 					public Symbol CompoundExpression { get; }
+					public Symbol SPreRead { get; }
+					public Symbol SSyntaxHandler { get; }
+					public Symbol SPre { get; }
+					public Symbol SPost { get; }
+					public Symbol SPrePrint { get; }
+					public Symbol In { get; }
+					public Symbol InString { get; }
+					public Symbol Out { get; }
+					public Symbol MessageList { get; }
+					public Symbol SMessageList { get; }
+					public Symbol SFailed { get; }
+					public Symbol SLine { get; }
 		
 		public SystemSymbols(OsmiumEngine e) {
 							All = e.GetSymbol("System`", "All");
@@ -130,7 +141,6 @@ namespace Osmium.Engine {
 							Rational = e.GetSymbol("System`", "Rational");
 							Complex = e.GetSymbol("System`", "Complex");
 							Get = e.GetSymbol("System`", "Get");
-							Out = e.GetSymbol("System`", "Out");
 							Slot = e.GetSymbol("System`", "Slot");
 							SlotSequence = e.GetSymbol("System`", "SlotSequence");
 							Optional = e.GetSymbol("System`", "Optional");
@@ -186,6 +196,18 @@ namespace Osmium.Engine {
 							Put = e.GetSymbol("System`", "Put");
 							PutAppend = e.GetSymbol("System`", "PutAppend");
 							CompoundExpression = e.GetSymbol("System`", "CompoundExpression");
+							SPreRead = e.GetSymbol("System`", "$PreRead");
+							SSyntaxHandler = e.GetSymbol("System`", "$SyntaxHandler");
+							SPre = e.GetSymbol("System`", "$Pre");
+							SPost = e.GetSymbol("System`", "$Post");
+							SPrePrint = e.GetSymbol("System`", "$PrePrint");
+							In = e.GetSymbol("System`", "In");
+							InString = e.GetSymbol("System`", "InString");
+							Out = e.GetSymbol("System`", "Out");
+							MessageList = e.GetSymbol("System`", "MessageList");
+							SMessageList = e.GetSymbol("System`", "$MessageList");
+							SFailed = e.GetSymbol("System`", "$Failed");
+							SLine = e.GetSymbol("System`", "$Line");
 			
 			Init();
 		}

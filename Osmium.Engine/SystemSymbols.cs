@@ -17,7 +17,8 @@ namespace Osmium.Engine
             Append.DownCode = ElementaryImplementations.Append;
             Apply.DownCode = ElementaryImplementations.Apply;
 
-            Plus.DownCode = NumericOperations.Plus;
+            Plus.DownCode = NumericImplementations.Plus;
+            Times.DownCode = NumericImplementations.Times;
 
             Set.DownCode = SetImplementations.Set;
             Set.Attributes = HoldFirst | Protected | SequenceHold;

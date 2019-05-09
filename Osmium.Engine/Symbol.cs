@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Xml.Schema;
 using Osmium.Engine.Patterns;
 using Osmium.Engine.Patterns.PatternClasses;
 using Osmium.Engine.Values;
@@ -59,5 +61,8 @@ namespace Osmium.Engine
         {
             return FullName;
         }
+
+        internal bool HasOwnValue() => OwnValues.Any() || OwnCode != null;
+        internal Value GetValue() => Engine.Evaluate(this);
     }
 }
